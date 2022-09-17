@@ -1,0 +1,75 @@
+1.  Pull images
+    docker pull image_name:version
+    Ex: docker pull mcr.microsoft.com/mssql/server:2019-CU16-GDR1-ubuntu-20.04
+2. List images
+    docker images
+3. Delete image
+    docker rmi image_name
+    docker rmi -f image_name
+4. Create container from image
+    docker run -d image_name
+    -d: Detach (background) mode
+    -e: environment variable
+    --name: container name
+    -p: port
+    -v: host_volume:container_volume
+    Ex: docker run \
+        -e "ACCEPT_EULA=Y" \
+        -e "SA_PADDWORD=123123" \
+        --name sql-server-2019-container \
+        -p 1435:1433 \
+        -v my-volume-1:/var/opt/mssql \
+        -d mcr.microsoft.com/mssql/server:2019-CU16-GDR1-ubuntu-20.04
+    Ex: docker run \
+        -e MYSQL_ROOT_PASSWORD=123123 \
+        --name mysql8-container \
+        -p 3308:3306 \
+        -v mysql8-volume:/var/lib/mysql \
+        -d mysql
+5. List container
+    docker ps
+    docker pas -a
+6. Stop container
+    docker stop container_name
+7. Start container
+    docker start container_name
+8. Delete docker
+    docker rm docker_name
+    docker rm -f docker_name
+    -f: force
+9. List volume
+    docker volume ls
+    docker volume inspect volume_name
+10. Remove volume
+    docker volume rm volume_name
+11. Create network
+    docker network create network_name
+12 .List network
+    docker network ls
+
+   Ex: docker run \
+        -e MYSQL_ROOT_PASSWORD=123123 \
+        --name mysql8-container \
+        --network todo-app-network \
+        --network-alias todo-app-network-alias \
+        -p 3308:3306 \
+        -v mysql8-volume:/var/lib/mysql \
+        -d mysql
+
+    Ex: docker run -p 3002:3000 \
+        --name todo-app-container \
+        -w /app -v "$(pwd):/app" \
+        --network todo-app-network \
+        -d node
+ 13. Build image
+    docker build -t image_name:version .
+
+14. Rename image
+    docker tag old_name new name
+
+15 Push image
+    docker push docker_name:version
+
+
+
+
